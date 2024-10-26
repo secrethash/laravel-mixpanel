@@ -28,7 +28,6 @@ class TrackPurchase extends BaseTrackingListener
     {
         foreach ($event->orders as $order) {
             /** @var \Corals\Modules\Sales\Models\Order $order */
-
             $promotions = PromotionRepository::getPromotionsForOrder($order->id);
             $dataArr = [
                 'product_id' => $order->product->id,

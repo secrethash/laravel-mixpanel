@@ -21,8 +21,7 @@ class Tracker
 
     public function __construct(
         protected string $event
-    ) {
-    }
+    ) {}
 
     /**
      * Make new Tracker instance
@@ -45,7 +44,7 @@ class Tracker
         $this->event = filled($event) ? $event : $this->event;
 
         if (blank($this->event)) {
-            throw new InvalidEventException();
+            throw new InvalidEventException;
         }
 
         if (! $service->isActive()) {

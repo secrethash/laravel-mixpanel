@@ -21,6 +21,5 @@ class AddListingEvent implements MixpanelEvent
      */
     public function __construct(
         public Product $product
-    ) {
-    }
+    ) {}
 }

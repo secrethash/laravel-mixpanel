@@ -22,8 +22,7 @@ class MixpanelEvent
     public function __construct(
         public TrackingEvents $event,
         public array $properties
-    ) {
-    }
+    ) {}
 
     /**
      * Get the channels the event should broadcast on.

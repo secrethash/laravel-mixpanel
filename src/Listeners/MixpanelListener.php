@@ -23,8 +23,7 @@ class MixpanelListener implements ListenerInterface, ShouldQueue
      */
     public function __construct(
         protected Mixpanel $mixpanel
-    ) {
-    }
+    ) {}
 
     /**
      * Handle the Event Listening

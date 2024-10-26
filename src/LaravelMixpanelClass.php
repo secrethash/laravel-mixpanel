@@ -2,6 +2,4 @@
 
 namespace Secrethash\LaravelMixpanel;
 
-class LaravelMixpanelClass
-{
-}
+class LaravelMixpanelClass {}

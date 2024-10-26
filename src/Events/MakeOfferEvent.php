@@ -21,6 +21,5 @@ class MakeOfferEvent implements MixpanelEvent
      */
     public function __construct(
         public OfferHistory $offerHistory
-    ) {
-    }
+    ) {}
 }
