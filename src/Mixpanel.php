@@ -157,7 +157,7 @@ class Mixpanel
     public function identify(): self
     {
         if (! $this->mixpanel) {
-            throw new SetupMissingException;
+            throw new SetupMissingException();
         }
 
         if (config('mixpanel.identity.auto')) {

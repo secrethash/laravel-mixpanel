@@ -9,7 +9,8 @@ use Illuminate\Queue\SerializesModels;
 
 abstract class BaseTrackingListener implements MixpanelListener, ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels;
+    use InteractsWithQueue;
+    use SerializesModels;
 
     public $afterCommit = true;
 

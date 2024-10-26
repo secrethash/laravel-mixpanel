@@ -40,5 +40,4 @@ class TrackPurchase extends BaseTrackingListener
             Mixpanel::track(TrackingEvents::Purchase, $dataArr);
         }
     }
-
 }
