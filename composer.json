@@ -1,6 +1,6 @@
 {
     "name": "secrethash/laravel-mixpanel",
-    "description": "Laravel Bridge for Mixpanel",
+    "description": "Mixpanel Bridge for Laravel",
     "keywords": [
         "secrethash",
         "laravel-mixpanel"

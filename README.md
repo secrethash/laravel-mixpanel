@@ -1,10 +1,10 @@
-# Laravel Bridge for Mixpanel
+# Mixpanel for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/secrethash/laravel-mixpanel.svg?style=flat-square)](https://packagist.org/packages/secrethash/laravel-mixpanel)
 [![Tests](https://img.shields.io/github/actions/workflow/status/secrethash/laravel-mixpanel/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/secrethash/laravel-mixpanel/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/secrethash/laravel-mixpanel.svg?style=flat-square)](https://packagist.org/packages/secrethash/laravel-mixpanel)
 
-This package provides a sane bridge for Laravel applications and Mixpanel PHP SDK.
+This package provides a sane bridge between Laravel applications and Mixpanel PHP SDK.
 
 ## Installation
 
@@ -12,6 +12,12 @@ You can install the package via composer:
 
 ```bash
 composer require secrethash/laravel-mixpanel
+```
+
+Publish the Migrations and Config:
+
+```bash
+php artisan vendor:publish --provider="Secrethash\Mixpanel\MixpanelServiceProvider"
 ```
 
 ## Idealogies
@@ -24,11 +30,11 @@ Although the package does not force to use events and listeners in your applicat
 
 ### Events Naming Consistency
 
-We enforce a validation to make sure all the events sent are an instance of the class set in config key `laravel-mixpanel.tracker.events`. This should be a string backed enum.
+We enforce a validation to make sure all the events sent are an instance of the class set in config key `laravel-mixpanel.tracker.events`. This should be a string backed enum.  This is done to avoid event name inconsistency on mixpanel eg: `User Registered` and `User Created`
 
 ### User Auto-identification
 
-Enabled by default, we try early identification of the user using a user tracker (uuid). Every user is given a unique uuid which is saved in the database column defined in the config key `laravel-mixpanel.tracker.database_column`
+Enabled by default, we try early identification of the user using a user tracker (uuid). Every user is given a unique uuid which is saved in the database column defined in the config key `laravel-mixpanel.tracker.database_column`.
 
 ## Usage
 
@@ -43,7 +49,100 @@ $data = [
     'account_status' => 'verified',
 ];
 
-Mixpanel::track(TrackingEvent::userRegistered, $data);
+Mixpanel::track(TrackingEvents::userRegistered, $data);
+```
+
+## Examples
+
+### Tracking Order Successful Event
+
+- Order event and listener
+
+```php
+<?php
+
+namespace App\Events;
+
+use App\Models\Order;
+use Secrethash\Mixpanel\Contracts\MixpanelEvent;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+
+class OrderSuccessfulEvent implements MixpanelEvent
+{
+    use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    /**
+     * Create a new event instance.
+     *
+     * @return void
+     */
+    public function __construct(
+        public Order $order
+    ) {
+    }
+}
+```
+
+```php
+<?php
+
+namespace App\Listeners;
+
+use App\Enums\TrackingEvents;
+use App\Events\OrderSuccessfulEvent;
+use Secrethash\Mixpanel\Mixpanel;
+use Secrethash\Mixpanel\Listeners\BaseTrackingListener;
+
+class OrderSuccessTrackingListener extends BaseTrackingListener
+{
+    /**
+     * Handle the Event Listening
+     *
+     * @return void
+     */
+    public function handle(OrderSuccessfulEvent $event)
+    {
+        $order = $event->order;
+
+        Mixpanel::track(TrackingEvents::OrderSuccessful, [
+            'order_id' => $order->id,
+            'seller' => [
+                'id' => $order->product->seller?->id,
+                'name' => $order->product->seller?->full_name,
+            ],
+            'amount' => $order->amount,
+            'currency' => $order->currency,
+            'status' => $order->status,
+        ]);
+    }
+}
+
+```
+
+- Register the event and listener by adding the mapping to `App\Providers\EventServiceProvider::$listen`
+
+```php
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Foundation\Support\Providers\EventServiceProvider;
+use App\Events\OrderSuccessfulEvent;
+use App\Listeners\OrderSuccessTrackingListener;
+
+class EventServiceProvider extends EventServiceProvider
+{
+    protected $listen = [
+        ...
+        OrderSuccessfulEvent::class => [
+            OrderSuccessTrackingListener::class,
+        ],
+    ];
+    ...
+}
+
 ```
 
 ## Testing

@@ -12,13 +12,14 @@ use Secrethash\Mixpanel\Exceptions\InvalidEventException;
 use Secrethash\Mixpanel\Exceptions\InvalidIdentityKeyException;
 use Secrethash\Mixpanel\Exceptions\SetupMissingException;
 use Secrethash\Mixpanel\Services\FluentStatus;
+use Illuminate\Database\Eloquent\Model;
 
 class Mixpanel
 {
     /**
      * Tracked User
      */
-    protected ?Authenticatable $user = null;
+    protected Authenticatable|Model|null $user = null;
 
     /**
      * Tracking UUID
