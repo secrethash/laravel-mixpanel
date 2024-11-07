@@ -48,11 +48,6 @@ class Mixpanel
 
     /**
      * Key where the UUID is set
-     *
-     * This can also be overwritten programmatically
-     * in App\Providers\AppServiceProvider or any
-     * other service provider as such
-     * Mixpanel::$userIdentityKey = 'tracking_id'
      */
     public static string $userIdentityKey;
 
