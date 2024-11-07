@@ -4,10 +4,10 @@ namespace Secrethash\Mixpanel;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Foundation\Console\AboutCommand;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Collection;
+use Illuminate\Support\ServiceProvider;
 
 class MixpanelServiceProvider extends ServiceProvider
 {
@@ -51,6 +51,7 @@ class MixpanelServiceProvider extends ServiceProvider
 
         $this->app->register(MixpanelEventServiceProvider::class);
     }
+
     protected function offerPublishing(): void
     {
         if (! $this->app->runningInConsole()) {
@@ -85,6 +86,7 @@ class MixpanelServiceProvider extends ServiceProvider
             ->push($this->app->databasePath()."/migrations/{$timestamp}_{$migrationFileName}")
             ->first();
     }
+
     /**
      * Register Mixpanel info to artisan:about command
      *
