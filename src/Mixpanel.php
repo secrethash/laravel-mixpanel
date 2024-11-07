@@ -3,6 +3,7 @@
 namespace Secrethash\Mixpanel;
 
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Mixpanel as MixpanelPHP;
@@ -12,7 +13,6 @@ use Secrethash\Mixpanel\Exceptions\InvalidEventException;
 use Secrethash\Mixpanel\Exceptions\InvalidIdentityKeyException;
 use Secrethash\Mixpanel\Exceptions\SetupMissingException;
 use Secrethash\Mixpanel\Services\FluentStatus;
-use Illuminate\Database\Eloquent\Model;
 
 class Mixpanel
 {
