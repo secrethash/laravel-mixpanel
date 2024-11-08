@@ -1,10 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Event;
 use Secrethash\Mixpanel\Events\MixpanelEvent;
+use Secrethash\Mixpanel\Mixpanel;
 use Secrethash\Mixpanel\Tests\Suite\Enums\TrackingEvents;
 use Secrethash\Mixpanel\Tests\Suite\Events\OrderSuccessfulEvent;
-use Illuminate\Support\Facades\Event;
-use Secrethash\Mixpanel\Mixpanel;
 
 it('can be disabled during runtime', function () {
     Mixpanel::$track = false;

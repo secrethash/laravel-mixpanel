@@ -1,14 +1,15 @@
 <?php
+
 namespace Secrethash\Mixpanel\Tests;
 
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Secrethash\Mixpanel\Consumers\DebugConsumer;
 use Secrethash\Mixpanel\Consumers\DebugCurlConsumer;
 use Secrethash\Mixpanel\Consumers\DebugFileConsumer;
 use Secrethash\Mixpanel\Consumers\DebugSocketConsumer;
-use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-abstract class TestCase extends OrchestraTestCase {
-
+abstract class TestCase extends OrchestraTestCase
+{
     /**
      * This method is called before each test.
      *
