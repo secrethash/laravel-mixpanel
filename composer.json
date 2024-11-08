@@ -20,9 +20,10 @@
         "mixpanel/mixpanel-php": "^2.11"
     },
     "require-dev": {
-        "pestphp/pest": "^2.20",
         "laravel/pint": "^1.0",
-        "spatie/ray": "^1.28"
+        "pestphp/pest": "^3.5",
+        "spatie/ray": "^1.28",
+        "orchestra/testbench": "^6.23 || ^7.0 || ^8.0 || ^9.0"
     },
     "autoload": {
         "psr-4": {
