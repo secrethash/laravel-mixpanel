@@ -21,6 +21,7 @@ class MixpanelServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__.'/database/migrations');
             $this->registerAboutCommand();
+            $this->offerPublishing();
         }
     }
 
