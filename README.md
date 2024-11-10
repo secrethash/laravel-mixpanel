@@ -22,17 +22,30 @@ This package provides a sane [Mixpanel PHP SDK](https://github.com/mixpanel/mixp
 
 ## Installation
 
-You can install the package via composer:
+1. Install the package via composer:
 
-```bash
-composer require secrethash/laravel-mixpanel
-```
+    ```bash
+    composer require secrethash/laravel-mixpanel
+    ```
 
-Publish the Migrations and Config:
+2. Publish the Migrations and Config:
+    - Publish all resources [`migrations`, `config`]:
 
-```bash
-php artisan vendor:publish --provider="Secrethash\Mixpanel\MixpanelServiceProvider"
-```
+        ```bash
+        php artisan vendor:publish --provider="Secrethash\Mixpanel\MixpanelServiceProvider"
+        ```
+
+    - Publish only migrations:
+
+        ```bash
+        php artisan vendor:publish --tag="laravel-mixpanel-migrations"
+        ```
+
+    - Publish only config:
+
+        ```bash
+        php artisan vendor:publish --tag="laravel-mixpanel-config"
+        ```
 
 ## Idealogies
 
@@ -107,6 +120,24 @@ Consumer strategies are also bridged with the [Mixpanel PHP SDK](https://github.
             Mixpanel::$userIdentityKey = 'uuid';
         }
     }
+    ```
+
+4. The package also provides a lot of helpful integration details in the `php artisan about` command:
+
+    ```bash
+    php artisan about
+    ```
+
+    ```txt
+    Laravel Mixpanel Integration .................................................................  
+    Active .............................................................................. INACTIVE  
+    Current State ......................................... Tracking Disabled due to missing Token  
+    Debugging ........................................................................... DISABLED  
+    Mixpanel Consumer ..................................................................... socket  
+    Mixpanel Host ........................................................................ DEFAULT  
+    Mixpanel Token ......................................................................... UNSET  
+    User Identity Attributes ........................................... name, last_name, username  
+    User Identity Key ........................................................... mixpanel_tracker
     ```
 
 ## Examples
